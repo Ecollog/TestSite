@@ -21,10 +21,17 @@
             nav.classList.remove("is-open");
             toggle.setAttribute("aria-expanded", "false");
         });
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && nav.classList.contains("is-open")) {
+                nav.classList.remove("is-open");
+                toggle.setAttribute("aria-expanded", "false");
+            }
+        });
     }
 
     // ===== Smooth scroll offset for sticky header
-    const header = $("header");
+    const header = $(".site-header") || $("header");
     const headerH = () => (header ? header.getBoundingClientRect().height : 0);
 
     $$('a[href^="#"]').forEach((a) => {
@@ -43,7 +50,11 @@
 
     // ===== Active section highlight in nav
     const sections = $$("main section[id]");
-    const navLinks = $$(".nav a[href^='#']");
+    const navLinks =
+        $$(".nav__list a[href^='#']")
+            .concat($$(".nav a[href^='#']"))
+            .filter((v, i, arr) => arr.indexOf(v) === i);
+
     const linkById = new Map(navLinks.map(a => [a.getAttribute("href").slice(1), a]));
 
     const onScrollActive = () => {
@@ -101,8 +112,14 @@
         toastTimer = setTimeout(() => t.remove(), ms);
     }
 
-    // ===== Gallery lightbox (работает с webp напрямую из img.src)
-    const galleryFigures = $$("#gallery figure");
+    // ===== Gallery lightbox (под новый HTML)
+    // Было: #gallery figure
+    // Стало: #gallery .gallery-grid figure.card
+    const galleryFigures =
+        $$("#gallery .gallery-grid figure")
+            .concat($$("#gallery figure"))
+            .filter((v, i, arr) => arr.indexOf(v) === i);
+
     if (galleryFigures.length) {
         const lb = document.createElement("div");
         lb.className = "lightbox";
@@ -148,10 +165,11 @@
             const cap = $("figcaption", fig);
             if (!img) return;
 
-            const src = img.dataset.full || img.currentSrc || img.src; // <-- FIX: поддержка picture/data-full
+            const src = img.dataset.full || img.currentSrc || img.src;
             const caption = cap ? cap.textContent : "";
 
             const open = () => openLightbox(src, img.alt, caption);
+
             fig.addEventListener("click", open);
             fig.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -170,13 +188,14 @@
         });
     }
 
-    // ===== Form: validation + "smart submit" (без сервера)
+    // ===== Form: validation + "smart submit"
     const form = $("#bookingForm");
     if (form) {
         const nameInput = $("input[name='name']", form);
         const phoneInput = $("input[name='phone']", form);
         const serviceSelect = $("select[name='service']", form);
         const agreeCheck = $("input[name='agree']", form);
+        const hint = $(".form-hint", form) || $(".form-hint");
 
         function clearErrors() {
             $$(".error-text", form).forEach(el => el.remove());
@@ -189,7 +208,6 @@
             p.className = "error-text";
             p.textContent = msg;
 
-            // Для чекбокса красивее вставлять после label
             const wrap = field.closest("label") || field.parentElement;
             wrap.appendChild(p);
         }
@@ -197,20 +215,15 @@
         function normalizePhone(raw) {
             const cleaned = String(raw || "").replace(/[^\d+]/g, "");
             const digits = cleaned.replace(/[^\d]/g, "");
-
-            // РФ-логика
             if (digits.length === 11 && digits.startsWith("8")) return "+7" + digits.slice(1);
             if (digits.length === 11 && digits.startsWith("7")) return "+" + digits;
-
-            // Любой телефон: оставим + если он есть, иначе как есть
             if (cleaned.startsWith("+") && digits.length >= 10) return cleaned;
-
-            // Если без +, просто вернем как есть (валидация проверит по цифрам)
             return cleaned;
         }
 
         function validate() {
             clearErrors();
+            if (hint) hint.textContent = "";
 
             let ok = true;
             const name = (nameInput?.value || "").trim();
@@ -219,7 +232,7 @@
             const agree = !!agreeCheck?.checked;
 
             if (!nameInput || !phoneInput || !serviceSelect || !agreeCheck) {
-                toast("Ошибка: не найдены поля формы. Проверьте id/имена полей в HTML.");
+                toast("Ошибка: не найдены поля формы. Проверьте name/id в HTML.");
                 return false;
             }
 
@@ -229,10 +242,10 @@
             }
 
             const digits = phone.replace(/[^\d]/g, "");
-            const looksLikeRu = phone.startsWith("+7") && digits.length === 11;
+            const looksRu = phone.startsWith("+7") && digits.length === 11;
             const looksAny = digits.length >= 10;
 
-            if (!looksLikeRu && !looksAny) {
+            if (!looksRu && !looksAny) {
                 ok = false;
                 setFieldError(phoneInput, "Введите корректный телефон (минимум 10 цифр).");
             } else {
@@ -256,6 +269,7 @@
             e.preventDefault();
 
             if (!validate()) {
+                if (hint) hint.textContent = "Проверьте поля формы — есть ошибки.";
                 toast("Проверьте поля формы — есть ошибки.");
                 return;
             }
@@ -284,25 +298,18 @@
                 8000
             );
 
+            if (hint) hint.textContent = "Заявка сформирована. Выберите мессенджер в всплывающем сообщении.";
             form.reset();
         });
 
-        // Убираем ошибки только при изменении конкретного поля (не чистим всё "на любое движение")
+        // Убираем ошибку у поля при вводе
         form.addEventListener("input", (e) => {
             const field = e.target;
             if (!(field instanceof HTMLElement)) return;
 
             field.classList.remove("field-error");
-            const err = field.closest("label")?.querySelector(".error-text") || field.parentElement?.querySelector(".error-text");
-            if (err) err.remove();
-        }, { passive: true });
-
-        form.addEventListener("change", (e) => {
-            const field = e.target;
-            if (!(field instanceof HTMLElement)) return;
-
-            field.classList.remove("field-error");
-            const err = field.closest("label")?.querySelector(".error-text") || field.parentElement?.querySelector(".error-text");
+            const err = field.closest("label")?.querySelector(".error-text")
+                || field.parentElement?.querySelector(".error-text");
             if (err) err.remove();
         }, { passive: true });
     }

@@ -1,321 +1,411 @@
 ﻿<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Бровист — [Имя мастера] | Оформление бровей</title>
-  <meta name="description" content="Оформление бровей, ламинирование, окрашивание. Запись онлайн. [Город]." />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Бровист — [Имя мастера] | Оформление бровей</title>
+    <meta name="description" content="Оформление бровей, ламинирование, окрашивание. Запись онлайн. [Город]." />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- CSS отдельно -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <a href="#main">Перейти к содержанию</a>
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
 
-  <header>
-    <div>
-      <div>
-        <strong>[Лого/Имя мастера]</strong>
-        <p>
-          Бровист • [Город] • Запись:
-          <a href="tel:+70000000000">+7 (000) 000-00-00</a>
-        </p>
-      </div>
+    <header class="site-header">
+        <div class="container header-row">
+            <div class="brand">
+                <strong class="brand__title">[Лого/Имя мастера]</strong>
+                <p class="brand__meta">
+                    Бровист • [Город] • Запись:
+                    <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+                </p>
+            </div>
 
-      <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false">
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </button>
-    </div>
+            <button class="nav-toggle" type="button"
+                    aria-label="Открыть меню"
+                    aria-expanded="false"
+                    aria-controls="siteNav">
+                <span class="nav-toggle__bar"></span>
+                <span class="nav-toggle__bar"></span>
+                <span class="nav-toggle__bar"></span>
+            </button>
 
-    <nav class="nav" aria-label="Основная навигация">
-      <ul>
-        <li><a href="#services">Услуги</a></li>
-        <li><a href="#gallery">Галерея</a></li>
-        <li><a href="#documents">Документы</a></li>
-        <li><a href="#reviews">Отзывы</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contacts">Контакты</a></li>
-      </ul>
-    </nav>
-  </header>
+            <nav id="siteNav" class="nav" aria-label="Основная навигация">
+                <ul class="nav__list">
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#prices">Цены</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="#documents">Документы</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <main id="main">
-    <section id="top" aria-label="Первый экран">
-        <h1 data-text="Красивые брови без лишнего стресса">Красивые брови без лишнего стресса</h1>
-      <p>
-        Оформление, окрашивание и ламинирование. Индивидуальная форма, аккуратная работа, стерильность.
-      </p>
+    <main id="main">
+        <!-- HERO -->
+        <section id="top" class="section hero" aria-label="Первый экран">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <h1 class="hero-title">Красивые брови без лишнего стресса</h1>
 
-      <ul>
-        <li>✅ Консультация перед процедурой</li>
-        <li>✅ Подбор формы под черты лица</li>
-        <li>✅ Деликатная коррекция</li>
-        <li>✅ Одноразовые расходники</li>
-      </ul>
+                    <p class="lead">
+                        Оформление, окрашивание и ламинирование. Индивидуальная форма, аккуратная работа, стерильность.
+                    </p>
 
-      <p>
-        <a href="#booking">Записаться</a>
-        <a href="#prices">Посмотреть цены</a>
-      </p>
+                    <ul class="checklist">
+                        <li>Консультация перед процедурой</li>
+                        <li>Подбор формы под черты лица</li>
+                        <li>Деликатная коррекция</li>
+                        <li>Одноразовые расходники</li>
+                    </ul>
 
-      <figure>
-        <!-- WebP -->
-        <img src="images/hero.webp" alt="Фото мастера или рабочего места" width="1200" height="700" />
-        <figcaption>Работаю в уютной студии в центре [Город].</figcaption>
-      </figure>
-    </section>
+                    <div class="hero-actions">
+                        <a class="btn btn--primary" href="#booking">Записаться</a>
+                        <a class="btn btn--ghost" href="#prices">Посмотреть цены</a>
+                    </div>
 
-    <section id="about">
-      <h2>О мастере</h2>
-      <p>
-        Меня зовут <strong>[Имя]</strong>. Я бровист с опытом <strong>[N] лет</strong>.
-        Работаю с натуральным эффектом, подчеркивая ваши черты лица.
-      </p>
+                    <p class="muted">Работаю в уютной студии в центре [Город].</p>
+                </div>
 
-      <ul>
-        <li><strong>Образование:</strong> [Курсы/школа/сертификация]</li>
-        <li><strong>Материалы:</strong> [Бренды красителей/составов]</li>
-        <li><strong>Стерильность:</strong> обработка инструментов + одноразовые расходники</li>
-        <li><strong>Локация:</strong> [Адрес/район]</li>
-      </ul>
-    </section>
+                <figure class="hero-media card">
+                    <img src="images/hero.webp" alt="Фото мастера или рабочего места" width="1200" height="700" loading="eager" />
+                </figure>
+            </div>
+        </section>
 
-    <section id="services">
-      <h2>Услуги</h2>
+        <!-- ABOUT + BENEFITS -->
+        <section id="about" class="section">
+            <div class="container grid-2">
+                <div class="card">
+                    <h2>О мастере</h2>
+                    <p>
+                        Меня зовут <strong>[Имя]</strong>. Я бровист с опытом <strong>[N] лет</strong>.
+                        Работаю с натуральным эффектом, подчеркивая ваши черты лица.
+                    </p>
 
-      <article>
-        <h3>Оформление бровей (коррекция)</h3>
-        <p>Подбор формы, разметка, коррекция пинцетом/воском (по показаниям).</p>
-      </article>
+                    <ul class="meta-list">
+                        <li><strong>Образование:</strong> [Курсы/школа/сертификация]</li>
+                        <li><strong>Материалы:</strong> [Бренды красителей/составов]</li>
+                        <li><strong>Стерильность:</strong> обработка + одноразовые расходники</li>
+                        <li><strong>Локация:</strong> [Адрес/район]</li>
+                    </ul>
+                </div>
 
-      <article>
-        <h3>Окрашивание</h3>
-        <p>Окрашивание бровей краской/хной, подбор оттенка, уходовые рекомендации.</p>
-      </article>
+                <div id="benefits" class="card">
+                    <h2>Почему выбирают меня</h2>
+                    <ul class="feature-list">
+                        <li><strong>Натуральный результат</strong><span>без “перерисованных” бровей</span></li>
+                        <li><strong>Безопасно</strong><span>стерильность, одноразовые материалы</span></li>
+                        <li><strong>Комфорт</strong><span>аккуратно и без спешки</span></li>
+                        <li><strong>Уход</strong><span>понятные рекомендации после процедуры</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-      <article>
-        <h3>Ламинирование бровей</h3>
-        <p>Укладка и фиксация волосков, визуальная густота, аккуратный контур.</p>
-      </article>
+        <!-- SERVICES -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2>Услуги</h2>
 
-      <article>
-        <h3>Комплекс</h3>
-        <p>Коррекция + окрашивание / ламинирование + окрашивание (варианты уточняются).</p>
-      </article>
-    </section>
+                <div class="cards-grid">
+                    <article class="card">
+                        <h3>Оформление (коррекция)</h3>
+                        <p>Подбор формы, разметка, коррекция пинцетом/воском (по показаниям).</p>
+                    </article>
 
-    <section id="prices" aria-label="Цены">
-      <h2>Цены</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Услуга</th>
-            <th scope="col">Время</th>
-            <th scope="col">Стоимость</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Коррекция бровей</td>
-            <td>30–40 мин</td>
-            <td>[₽/€ …]</td>
-          </tr>
-          <tr>
-            <td>Окрашивание бровей</td>
-            <td>40–60 мин</td>
-            <td>[₽/€ …]</td>
-          </tr>
-          <tr>
-            <td>Ламинирование бровей</td>
-            <td>60–90 мин</td>
-            <td>[₽/€ …]</td>
-          </tr>
-          <tr>
-            <td>Комплекс</td>
-            <td>70–100 мин</td>
-            <td>[₽/€ …]</td>
-          </tr>
-        </tbody>
-      </table>
+                    <article class="card">
+                        <h3>Окрашивание</h3>
+                        <p>Окрашивание краской/хной, подбор оттенка, уходовые рекомендации.</p>
+                    </article>
 
-      <p><small>* Итоговая стоимость зависит от густоты/особенностей волосков и выбранных материалов.</small></p>
-    </section>
+                    <article class="card">
+                        <h3>Ламинирование</h3>
+                        <p>Укладка и фиксация волосков, визуальная густота, аккуратный контур.</p>
+                    </article>
 
-    <section id="benefits">
-      <h2>Почему выбирают меня</h2>
-      <ul>
-        <li><strong>Натуральный результат:</strong> без “перерисованных” бровей</li>
-        <li><strong>Безопасно:</strong> стерильность, одноразовые материалы</li>
-        <li><strong>Комфорт:</strong> аккуратно и без спешки</li>
-        <li><strong>Понятный уход:</strong> рекомендации после процедуры</li>
-      </ul>
-    </section>
+                    <article class="card">
+                        <h3>Комплекс</h3>
+                        <p>Коррекция + окрашивание / ламинирование + окрашивание (варианты уточняются).</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-    <section id="gallery" aria-label="Галерея работ">
-      <h2>Галерея</h2>
-      <p>Примеры работ (до/после). Замените картинки на свои.</p>
+        <!-- PRICES -->
+        <section id="prices" class="section" aria-label="Цены">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Цены</h2>
+                    <p class="muted"><small>* Итоговая стоимость зависит от густоты/особенностей волосков и выбранных материалов.</small></p>
+                </div>
 
-      <div class="gallery-grid">
-        <figure>
-          <img src="images/work-1.webp" alt="Брови до и после — пример 1" width="600" height="600" />
-          <figcaption>Коррекция + окрашивание</figcaption>
-        </figure>
+                <!-- Desktop/tablet -->
+                <div class="price-table card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Услуга</th>
+                                <th scope="col">Время</th>
+                                <th scope="col">Стоимость</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Коррекция бровей</td>
+                                <td>30–40 мин</td>
+                                <td>[₽/€ …]</td>
+                            </tr>
+                            <tr>
+                                <td>Окрашивание бровей</td>
+                                <td>40–60 мин</td>
+                                <td>[₽/€ …]</td>
+                            </tr>
+                            <tr>
+                                <td>Ламинирование бровей</td>
+                                <td>60–90 мин</td>
+                                <td>[₽/€ …]</td>
+                            </tr>
+                            <tr>
+                                <td>Комплекс</td>
+                                <td>70–100 мин</td>
+                                <td>[₽/€ …]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        <figure>
-          <img src="images/work-2.webp" alt="Брови до и после — пример 2" width="600" height="600" />
-          <figcaption>Ламинирование</figcaption>
-        </figure>
+                <!-- Mobile/cards -->
+                <div class="price-cards">
+                    <article class="card price-card">
+                        <h3>Коррекция бровей</h3>
+                        <p><strong>Время:</strong> 30–40 мин</p>
+                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
+                    </article>
 
-        <figure>
-          <img src="images/work-3.webp" alt="Брови до и после — пример 3" width="600" height="600" />
-          <figcaption>Окрашивание (натуральный оттенок)</figcaption>
-        </figure>
+                    <article class="card price-card">
+                        <h3>Окрашивание бровей</h3>
+                        <p><strong>Время:</strong> 40–60 мин</p>
+                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
+                    </article>
 
-        <figure>
-          <img src="images/work-4.webp" alt="Брови до и после — пример 4" width="600" height="600" />
-          <figcaption>Комплекс</figcaption>
-        </figure>
-      </div>
-    </section>
+                    <article class="card price-card">
+                        <h3>Ламинирование бровей</h3>
+                        <p><strong>Время:</strong> 60–90 мин</p>
+                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
+                    </article>
 
-    <section id="documents" aria-label="Документы и сертификаты">
-      <h2>Документы</h2>
-      <p>Здесь можно разместить сертификаты, подтверждения обучения, реквизиты.</p>
+                    <article class="card price-card">
+                        <h3>Комплекс</h3>
+                        <p><strong>Время:</strong> 70–100 мин</p>
+                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-      <ul>
-        <li><a href="docs/certificate-1.pdf" download>Сертификат: [Название курса] (PDF)</a></li>
-        <li><a href="docs/certificate-2.pdf" download>Сертификат: [Название курса] (PDF)</a></li>
-        <li><a href="docs/sanitary-book.pdf" download>Санитарная книжка / допуск (PDF)</a></li>
-        <li><a href="docs/privacy-policy.pdf" download>Политика конфиденциальности (PDF)</a></li>
-      </ul>
+        <!-- GALLERY -->
+        <section id="gallery" class="section" aria-label="Галерея работ">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Галерея</h2>
+                    <p class="muted">Примеры работ (до/после). Замените картинки на свои.</p>
+                </div>
 
-      <p><small>* Положите файлы в папку <code>docs/</code> рядом с <code>index.html</code>.</small></p>
-    </section>
+                <div class="gallery-grid">
+                    <figure class="card">
+                        <img src="images/work-1.webp" alt="Брови до и после — пример 1" width="600" height="600" loading="lazy" />
+                        <figcaption>Коррекция + окрашивание</figcaption>
+                    </figure>
 
-    <section id="booking" aria-label="Запись">
-      <h2>Записаться</h2>
-      <p>Оставьте контакты — я напишу вам для подтверждения времени.</p>
+                    <figure class="card">
+                        <img src="images/work-2.webp" alt="Брови до и после — пример 2" width="600" height="600" loading="lazy" />
+                        <figcaption>Ламинирование</figcaption>
+                    </figure>
 
-      <form id="bookingForm" action="#" method="post" novalidate>
-        <p>
-          <label>
-            Имя<br />
-            <input name="name" autocomplete="name" required />
-          </label>
-        </p>
+                    <figure class="card">
+                        <img src="images/work-3.webp" alt="Брови до и после — пример 3" width="600" height="600" loading="lazy" />
+                        <figcaption>Окрашивание (натуральный оттенок)</figcaption>
+                    </figure>
 
-        <p>
-          <label>
-            Телефон / мессенджер<br />
-            <input name="phone" autocomplete="tel" required />
-          </label>
-        </p>
+                    <figure class="card">
+                        <img src="images/work-4.webp" alt="Брови до и после — пример 4" width="600" height="600" loading="lazy" />
+                        <figcaption>Комплекс</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
 
-        <p>
-          <label>
-            Услуга<br />
-            <select name="service" required>
-              <option value="" selected>Выберите услугу</option>
-              <option>Коррекция</option>
-              <option>Окрашивание</option>
-              <option>Ламинирование</option>
-              <option>Комплекс</option>
-            </select>
-          </label>
-        </p>
+        <!-- DOCUMENTS -->
+        <section id="documents" class="section" aria-label="Документы и сертификаты">
+            <div class="container">
+                <h2>Документы</h2>
+                <p class="muted">Сертификаты, подтверждения обучения, реквизиты.</p>
 
-        <p>
-          <label>
-            Комментарий (по желанию)<br />
-            <textarea name="comment" rows="4" placeholder="Например: хочу максимально натурально, есть аллергия/особенности"></textarea>
-          </label>
-        </p>
+                <ul class="docs-list card">
+                    <li><a href="docs/certificate-1.pdf" download>Сертификат: [Название курса] (PDF)</a></li>
+                    <li><a href="docs/certificate-2.pdf" download>Сертификат: [Название курса] (PDF)</a></li>
+                    <li><a href="docs/sanitary-book.pdf" download>Санитарная книжка / допуск (PDF)</a></li>
+                    <li><a href="docs/privacy-policy.pdf" download>Политика конфиденциальности (PDF)</a></li>
+                </ul>
 
-        <p>
-          <label>
-            <input type="checkbox" name="agree" required />
-            Я согласен(на) на обработку персональных данных
-          </label>
-        </p>
+                <p class="muted"><small>* Файлы в папке <code>docs/</code> рядом с <code>index.html</code>.</small></p>
+            </div>
+        </section>
 
-        <button type="submit">Отправить</button>
-      </form>
+        <!-- BOOKING -->
+        <section id="booking" class="section" aria-label="Запись">
+            <div class="container grid-2">
+                <div class="card">
+                    <h2>Записаться</h2>
+                    <p class="muted">Оставьте контакты — я напишу вам для подтверждения времени.</p>
 
-      <p>
-        Или напишите напрямую:
-        <a href="https://t.me/USERNAME" rel="noopener">Telegram</a> •
-        <a href="https://wa.me/000000000000" rel="noopener">WhatsApp</a> •
-        <a href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
-      </p>
-    </section>
+                    <form id="bookingForm" class="form" action="#" method="post" novalidate>
+                        <label class="field">
+                            <span>Имя</span>
+                            <input name="name" autocomplete="name" required />
+                        </label>
 
-    <section id="reviews" aria-label="Отзывы клиентов">
-      <h2>Отзывы</h2>
+                        <label class="field">
+                            <span>Телефон / мессенджер</span>
+                            <input name="phone" autocomplete="tel" required />
+                        </label>
 
-      <article>
-        <h3>Анна</h3>
-        <p>«Очень аккуратно, форма идеальная, держится супер!»</p>
-      </article>
+                        <label class="field">
+                            <span>Услуга</span>
+                            <select name="service" required>
+                                <option value="" selected>Выберите услугу</option>
+                                <option>Коррекция</option>
+                                <option>Окрашивание</option>
+                                <option>Ламинирование</option>
+                                <option>Комплекс</option>
+                            </select>
+                        </label>
 
-      <article>
-        <h3>Мария</h3>
-        <p>«Наконец-то натуральные брови, а не “нарисованные”. Спасибо!»</p>
-      </article>
+                        <label class="field">
+                            <span>Комментарий (по желанию)</span>
+                            <textarea name="comment" rows="4"
+                                      placeholder="Например: хочу максимально натурально, есть аллергия/особенности"></textarea>
+                        </label>
 
-      <article>
-        <h3>Екатерина</h3>
-        <p>«Было комфортно, все чисто, объяснили уход. Приду снова.»</p>
-      </article>
-    </section>
+                        <label class="check">
+                            <input type="checkbox" name="agree" required />
+                            <span>Я согласен(на) на обработку персональных данных</span>
+                        </label>
 
-    <section id="faq" aria-label="Частые вопросы">
-      <h2>FAQ</h2>
+                        <button class="btn btn--primary" type="submit">Отправить</button>
+                        <p class="form-hint muted" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
 
-      <details>
-        <summary>Сколько держится окрашивание?</summary>
-        <p>Обычно 1–3 недели по коже и дольше по волоскам — зависит от ухода и типа кожи.</p>
-      </details>
+                <aside class="card">
+                    <h3>Написать напрямую</h3>
+                    <p class="muted">Выберите удобный способ связи:</p>
 
-      <details>
-        <summary>Есть ли противопоказания?</summary>
-        <p>Да: свежие повреждения кожи, обострения дерматитов, аллергия на компоненты. Уточним перед процедурой.</p>
-      </details>
+                    <div class="contact-buttons hero-actions">
+                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
+                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
+                        <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
+                    </div>
 
-      <details>
-        <summary>Как подготовиться?</summary>
-        <p>За сутки лучше избегать агрессивных пилингов/скрабов в зоне бровей. Остальное расскажу при записи.</p>
-      </details>
-    </section>
+                    <hr class="sep" />
 
-    <section id="contacts" aria-label="Контакты и адрес">
-      <h2>Контакты</h2>
+                    <p class="muted"><strong>Быстрая запись:</strong></p>
+                    <a class="btn btn--primary" href="tel:+70000000000">Позвонить</a>
+                </aside>
+            </div>
+        </section>
 
-      <p><strong>Адрес:</strong> [Город], [улица, дом, кабинет]</p>
-      <p><strong>График:</strong> [Пн–Сб 10:00–19:00] (по записи)</p>
-      <p><strong>Телефон:</strong> <a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
-      <p><strong>Почта:</strong> <a href="mailto:hello@example.com">hello@example.com</a></p>
+        <!-- REVIEWS -->
+        <section id="reviews" class="section" aria-label="Отзывы клиентов">
+            <div class="container">
+                <h2>Отзывы</h2>
 
-      <figure>
-        <img src="images/map-placeholder.webp" alt="Заглушка карты" width="1200" height="500" />
-        <figcaption>Карту можно добавить позже через iframe (Google/Яндекс/OSM).</figcaption>
-      </figure>
+                <div class="cards-grid">
+                    <article class="card">
+                        <h3>Анна</h3>
+                        <p>«Очень аккуратно, форма идеальная, держится супер!»</p>
+                    </article>
 
-      <p>
-        <a href="#top">Наверх</a>
-      </p>
-    </section>
-  </main>
+                    <article class="card">
+                        <h3>Мария</h3>
+                        <p>«Наконец-то натуральные брови, а не “нарисованные”. Спасибо!»</p>
+                    </article>
 
-  <footer>
-    <p>© <span id="year">2026</span> [Имя мастера]. Все права защищены.</p>
-    <p>
-      <a href="docs/privacy-policy.pdf">Политика конфиденциальности</a> •
-      <a href="docs/offer.pdf">Публичная оферта</a>
-    </p>
-  </footer>
+                    <article class="card">
+                        <h3>Екатерина</h3>
+                        <p>«Было комфортно, все чисто, объяснили уход. Приду снова.»</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-  <script src="script.js"></script>
+        <!-- FAQ -->
+        <section id="faq" class="section" aria-label="Частые вопросы">
+            <div class="container">
+                <h2>FAQ</h2>
+
+                <div class="faq card">
+                    <details>
+                        <summary>Сколько держится окрашивание?</summary>
+                        <p>Обычно 1–3 недели по коже и дольше по волоскам — зависит от ухода и типа кожи.</p>
+                    </details>
+
+                    <details>
+                        <summary>Есть ли противопоказания?</summary>
+                        <p>Да: свежие повреждения кожи, обострения дерматитов, аллергия на компоненты. Уточним перед процедурой.</p>
+                    </details>
+
+                    <details>
+                        <summary>Как подготовиться?</summary>
+                        <p>За сутки лучше избегать агрессивных пилингов/скрабов в зоне бровей. Остальное расскажу при записи.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTS -->
+        <section id="contacts" class="section" aria-label="Контакты и адрес">
+            <div class="container grid-2">
+                <div class="card">
+                    <h2>Контакты</h2>
+
+                    <ul class="meta-list">
+                        <li><strong>Адрес:</strong> [Город], [улица, дом, кабинет]</li>
+                        <li><strong>График:</strong> [Пн–Сб 10:00–19:00] (по записи)</li>
+                        <li><strong>Телефон:</strong> <a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+                        <li><strong>Почта:</strong> <a href="mailto:hello@example.com">hello@example.com</a></li>
+                    </ul>
+
+                    <a class="btn btn--ghost" href="#top">Наверх</a>
+                </div>
+
+                <figure class="card map">
+                    <img src="images/map-placeholder.webp" alt="Заглушка карты" width="1200" height="500" loading="lazy" />
+                    <figcaption class="muted">Карту можно добавить позже через iframe (Google/Яндекс/OSM).</figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-row">
+            <p>© <span id="year">2026</span> [Имя мастера]. Все права защищены.</p>
+            <p class="footer-links">
+                <a href="docs/privacy-policy.pdf">Политика конфиденциальности</a>
+                <span aria-hidden="true">•</span>
+                <a href="docs/offer.pdf">Публичная оферта</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS отдельно -->
+    <script src="script.js" defer></script>
 </body>
 </html>
