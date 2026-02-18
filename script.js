@@ -1,52 +1,37 @@
-﻿// 1) Год в футере
-(() => {
-    const y = document.getElementById("year");
-    if (y) y.textContent = String(new Date().getFullYear());
-})();
+﻿// Год в футере
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// 2) Лайтбокс для галереи
-(() => {
-    const grid = document.getElementById("galleryGrid");
-    const lb = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lightboxImg");
-    const lbCap = document.getElementById("lightboxCaption");
+// Лайтбокс для галереи
+const gallery = document.getElementById('galleryGrid');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
 
-    if (!grid || !lb || !lbImg) return;
-
-    const closeBtn = lb.querySelector(".lightbox__close");
-    const bgBtn = lb.querySelector(".lightbox__bg");
-
-    function open(src, alt) {
-        lbImg.src = src;
-        lbImg.alt = alt || "Фото";
-        if (lbCap) lbCap.textContent = alt || "";
-        lb.hidden = false;
-        lb.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-    }
-
-    function close() {
-        lb.hidden = true;
-        lb.setAttribute("aria-hidden", "true");
-        lbImg.src = "";
-        document.body.style.overflow = "";
-    }
-
-    grid.addEventListener("click", (e) => {
-        const item = e.target.closest(".g-item");
+if (gallery && lightbox) {
+    // Открыть
+    gallery.addEventListener('click', (e) => {
+        const item = e.target.closest('.g-item');
         if (!item) return;
 
-        const img = item.querySelector("img");
-        const full = item.dataset.full || (img ? img.src : "");
-        if (!full) return;
+        const img = item.querySelector('img');
+        if (!img) return;
 
-        open(full, img?.alt || "");
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
     });
 
-    closeBtn?.addEventListener("click", close);
-    bgBtn?.addEventListener("click", close);
+    // Закрыть
+    const close = () => {
+        lightbox.hidden = true;
+        document.body.style.overflow = '';
+    };
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !lb.hidden) close();
+    lightbox.querySelector('.lightbox__bg')?.addEventListener('click', close);
+    lightbox.querySelector('.lightbox__close')?.addEventListener('click', close);
+
+    // Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.hidden) close();
     });
-})();
+}

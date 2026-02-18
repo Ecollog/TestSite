@@ -18,14 +18,13 @@
             <section class="profile card" aria-label="Профиль мастера">
                 <div class="profile__top">
                     <div class="avatar" aria-hidden="true">
-                        <!-- Поставь свою картинку -->
                         <img src="images/avatar.webp" alt="" loading="eager">
                     </div>
 
                     <div class="profile__meta">
-                        <h1 class="profile__name">[Имя / Ник мастера]</h1>
+                        <h1 class="profile__name">[Имя мастера]</h1>
                         <p class="profile__desc">
-                            5+ лет в индустрии • брови по вашему запросу • стерильно • аккуратно<br>
+                            5+ лет • брови по вашему запросу • стерильно<br>
                             <span class="muted">[Город]</span>
                         </p>
                     </div>
@@ -40,31 +39,23 @@
                     </div>
                 </div>
 
-                <div class="chips" aria-label="Коротко о важном">
+                <div class="chips">
                     <span class="chip">Подбор формы</span>
                     <span class="chip">Одноразовые расходники</span>
                     <span class="chip">Уютная студия</span>
-                    <span class="chip">По записи</span>
                 </div>
             </section>
 
-            <!-- QUICK LINKS (как у link-in-bio) -->
+            <!-- QUICK LINKS -->
             <section class="links" aria-label="Быстрые ссылки">
                 <a class="link-card card" href="#services">
                     <span class="link-card__title">Услуги</span>
                     <span class="link-card__hint">Оформление / окрашивание / ламинирование</span>
                 </a>
-
                 <a class="link-card card" href="#gallery">
                     <span class="link-card__title">Работы</span>
                     <span class="link-card__hint">До / после, примеры</span>
                 </a>
-
-                <a class="link-card card" href="#docs">
-                    <span class="link-card__title">Документы</span>
-                    <span class="link-card__hint">Сертификаты, политика</span>
-                </a>
-
                 <a class="link-card card" href="#contacts">
                     <span class="link-card__title">Контакты</span>
                     <span class="link-card__hint">Адрес, график, соцсети</span>
@@ -75,169 +66,130 @@
             <section id="services" class="card section">
                 <header class="section__head">
                     <h2 class="section__title">Услуги</h2>
-                    <p class="muted">Стоимость и варианты уточняются при записи</p>
                 </header>
 
                 <div class="service-grid">
-                    <article class="mini card">
+                    <article class="service-item">
                         <h3>Коррекция</h3>
-                        <p class="muted">Разметка + подбор формы + коррекция (пинцет/воск по показаниям).</p>
+                        <p class="price">800 ₽</p>
+                        <p class="muted">Подбор формы, пинцет/воск</p>
                     </article>
 
-                    <article class="mini card">
+                    <article class="service-item">
                         <h3>Окрашивание</h3>
-                        <p class="muted">Краска/хна, подбор оттенка, рекомендации по уходу.</p>
+                        <p class="price">600 ₽</p>
+                        <p class="muted">Краска/хна, подбор оттенка</p>
                     </article>
 
-                    <article class="mini card">
+                    <article class="service-item">
                         <h3>Ламинирование</h3>
-                        <p class="muted">Аккуратная укладка, визуальная густота, фиксация.</p>
+                        <p class="price">1500 ₽</p>
+                        <p class="muted">Укладка, визуальная густота</p>
                     </article>
 
-                    <article class="mini card">
+                    <article class="service-item">
                         <h3>Комплекс</h3>
-                        <p class="muted">Под ваш запрос: форма + цвет + укладка.</p>
+                        <p class="price">2000 ₽</p>
+                        <p class="muted">Коррекция + окрашивание + укладка</p>
                     </article>
                 </div>
 
                 <div class="note">
-                    <strong>Важно:</strong> если есть аллергия/чувствительная кожа — напишите заранее.
-                </div>
-
-                <div class="section__cta">
-                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
+                    <strong>Важно:</strong> при аллергии/чувствительной коже — напишите заранее
                 </div>
             </section>
 
             <!-- GALLERY -->
-            <section id="gallery" class="card section" aria-label="Галерея работ">
+            <section id="gallery" class="card section">
                 <header class="section__head">
                     <h2 class="section__title">Работы</h2>
-                    <p class="muted">Нажмите на фото — откроется крупно</p>
+                    <p class="muted">Нажмите на фото для увеличения</p>
                 </header>
 
-                <!-- СЕТКА: квадратные превью -->
                 <div class="gallery-grid" id="galleryGrid">
-                    <!-- Замени пути на свои -->
-                    <button class="g-item" type="button" data-full="images/work-1.webp" aria-label="Открыть фото 1">
+                    <button class="g-item" type="button" data-full="images/work-1.webp" aria-label="Открыть фото">
                         <img src="images/work-1.webp" alt="Работа 1" loading="lazy">
                     </button>
-
-                    <button class="g-item" type="button" data-full="images/work-2.webp" aria-label="Открыть фото 2">
+                    <button class="g-item" type="button" data-full="images/work-2.webp" aria-label="Открыть фото">
                         <img src="images/work-2.webp" alt="Работа 2" loading="lazy">
                     </button>
-
-                    <button class="g-item" type="button" data-full="images/work-3.webp" aria-label="Открыть фото 3">
+                    <button class="g-item" type="button" data-full="images/work-3.webp" aria-label="Открыть фото">
                         <img src="images/work-3.webp" alt="Работа 3" loading="lazy">
                     </button>
-
-                    <button class="g-item" type="button" data-full="images/work-4.webp" aria-label="Открыть фото 4">
+                    <button class="g-item" type="button" data-full="images/work-4.webp" aria-label="Открыть фото">
                         <img src="images/work-4.webp" alt="Работа 4" loading="lazy">
                     </button>
-
-                    <button class="g-item" type="button" data-full="images/work-5.webp" aria-label="Открыть фото 5">
+                    <button class="g-item" type="button" data-full="images/work-5.webp" aria-label="Открыть фото">
                         <img src="images/work-5.webp" alt="Работа 5" loading="lazy">
                     </button>
-
-                    <button class="g-item" type="button" data-full="images/work-6.webp" aria-label="Открыть фото 6">
+                    <button class="g-item" type="button" data-full="images/work-6.webp" aria-label="Открыть фото">
                         <img src="images/work-6.webp" alt="Работа 6" loading="lazy">
                     </button>
                 </div>
             </section>
 
-            <!-- DOCS -->
-            <section id="docs" class="card section">
-                <header class="section__head">
-                    <h2 class="section__title">Документы</h2>
-                    <p class="muted">Сертификаты и важные файлы</p>
-                </header>
-
-                <ul class="doc-list">
-                    <li><a class="doc" href="docs/certificate-1.pdf" download>Сертификат (PDF)</a></li>
-                    <li><a class="doc" href="docs/certificate-2.pdf" download>Сертификат (PDF)</a></li>
-                    <li><a class="doc" href="docs/privacy-policy.pdf" download>Политика конфиденциальности (PDF)</a></li>
-                    <li><a class="doc" href="docs/offer.pdf" download>Публичная оферта (PDF)</a></li>
-                </ul>
-            </section>
-
-            <!-- FAQ -->
-            <section class="card section" aria-label="Частые вопросы">
-                <header class="section__head">
-                    <h2 class="section__title">FAQ</h2>
-                    <p class="muted">Коротко и по делу</p>
-                </header>
-
-                <div class="faq">
-                    <details open>
-                        <summary>Сколько держится окрашивание?</summary>
-                        <p>В среднем 1–3 недели по коже и дольше по волоскам — зависит от ухода и типа кожи.</p>
-                    </details>
-
-                    <details>
-                        <summary>Есть ли противопоказания?</summary>
-                        <p>Да: повреждения кожи, обострения дерматитов, аллергия на компоненты. Всё уточним перед процедурой.</p>
-                    </details>
-
-                    <details>
-                        <summary>Как подготовиться?</summary>
-                        <p>За сутки лучше не делать пилинги/скрабы в зоне бровей. Остальное расскажу при записи.</p>
-                    </details>
-                </div>
-            </section>
-
             <!-- CONTACTS -->
-            <section id="contacts" class="card section" aria-label="Контакты">
+            <section id="contacts" class="card section">
                 <header class="section__head">
                     <h2 class="section__title">Контакты</h2>
-                    <p class="muted">Пишите — отвечу и подберём время</p>
                 </header>
 
                 <ul class="contact-list">
-                    <li><strong>Адрес:</strong> [Город], [улица, дом, кабинет]</li>
-                    <li><strong>График:</strong> [Пн–Сб 10:00–19:00] (по записи)</li>
+                    <li><strong>Адрес:</strong> [Город], [улица, дом]</li>
+                    <li><strong>График:</strong> Пн–Сб 10:00–19:00</li>
                     <li><strong>Телефон:</strong> <a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
                     <li><strong>Instagram:</strong> <a href="https://instagram.com/USERNAME" rel="noopener">@USERNAME</a></li>
                 </ul>
 
-                <div class="profile__actions">
+                <div class="contacts-actions">
                     <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
-                    <div class="btn-row">
-                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
-                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
-                        <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
-                    </div>
                 </div>
+            </section>
 
-                <!-- (Опционально) сюда можно вставить iframe карты -->
-                <!-- <div class="map card">
-                  <iframe ...></iframe>
-                </div> -->
+            <!-- FAQ -->
+            <section class="card section">
+                <header class="section__head">
+                    <h2 class="section__title">Частые вопросы</h2>
+                </header>
+
+                <div class="faq">
+                    <details>
+                        <summary>Сколько держится окрашивание?</summary>
+                        <p>1–3 недели по коже, дольше по волоскам — зависит от ухода</p>
+                    </details>
+
+                    <details>
+                        <summary>Есть ли противопоказания?</summary>
+                        <p>Повреждения кожи, обострения дерматитов, аллергия на компоненты</p>
+                    </details>
+
+                    <details>
+                        <summary>Как подготовиться?</summary>
+                        <p>За сутки не делать пилинги/скрабы в зоне бровей</p>
+                    </details>
+                </div>
             </section>
 
             <footer class="footer">
                 <div class="footer__row">
                     <span>© <span id="year">2026</span> [Имя мастера]</span>
-                    <span class="muted">•</span>
-                    <a class="muted" href="docs/privacy-policy.pdf">Политика</a>
                 </div>
             </footer>
         </div>
     </main>
 
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox" hidden aria-hidden="true">
+    <!-- LIGHTBOX (только для галереи) -->
+    <div class="lightbox" id="lightbox" hidden>
         <button class="lightbox__bg" type="button" aria-label="Закрыть"></button>
-        <figure class="lightbox__panel card" role="dialog" aria-label="Просмотр фото">
-            <img id="lightboxImg" alt="Фото" />
-            <figcaption class="muted" id="lightboxCaption"></figcaption>
+        <div class="lightbox__content card">
+            <img id="lightboxImg" alt="" />
             <button class="lightbox__close btn btn--ghost" type="button">Закрыть</button>
-        </figure>
+        </div>
     </div>
 
-    <!-- MOBILE CTA BAR -->
-    <div class="cta-bar" role="region" aria-label="Быстрые действия">
-        <a class="btn btn--primary cta-bar__btn" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
-        <a class="btn btn--ghost cta-bar__btn" href="tel:+70000000000">Позвонить</a>
+    <!-- MOBILE CTA (одна кнопка) -->
+    <div class="cta-bar">
+        <a class="btn btn--primary cta-bar__btn" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться онлайн</a>
     </div>
 
     <script src="script.js" defer></script>
