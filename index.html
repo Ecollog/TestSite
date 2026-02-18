@@ -7,7 +7,7 @@
     <meta name="description" content="Оформление бровей, ламинирование, окрашивание. Запись онлайн. [Город]." />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- CSS отдельно (вы подключите позже) -->
+    <!-- CSS отдельно (подключите позже) -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -40,7 +40,12 @@
                     <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#contacts">Контакты</a></li>
-                    <li><a href="#booking" class="nav-cta">Записаться</a></li>
+                    <!-- было: якорь на booking — теперь внешняя ссылка -->
+                    <li>
+                        <a class="nav-cta" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
+                            Записаться
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -65,7 +70,6 @@
                     </ul>
 
                     <div class="hero-actions">
-                        <!-- Кнопка записи ведёт на ваш mst.link -->
                         <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
                         <a class="btn btn--ghost" href="#gallery">Смотреть работы</a>
                     </div>
@@ -136,23 +140,25 @@
                         <p>Коррекция + окрашивание / ламинирование + окрашивание (варианты уточняются).</p>
                     </article>
                 </div>
-                <!-- Быстрая запись под услугами (опционально) -->
+
                 <div class="services-action">
-                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться на процедуру</a>
+                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
+                        Записаться
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- GALLERY (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) -->
+        <!-- GALLERY (ПОЛОСКА С ГОРИЗОНТАЛЬНЫМ СКРОЛЛОМ) -->
         <section id="gallery" class="section" aria-label="Галерея работ">
             <div class="container">
                 <div class="section-head">
                     <h2>Галерея</h2>
-                    <p class="muted">Примеры работ (листайте вправо →)</p>
+                    <p class="muted">Листайте вправо →</p>
                 </div>
 
-                <!-- Контейнер для горизонтального скролла (flex + overflow) -->
-                <div class="gallery-scroll">
+                <!-- Полоса-скролл: стили/JS подключите позже -->
+                <div class="gallery-scroll" role="region" aria-label="Галерея работ — горизонтальная прокрутка" tabindex="0">
                     <figure class="gallery-item">
                         <img src="images/work-1.webp" alt="Брови до и после — пример 1" width="600" height="600" loading="lazy" />
                         <figcaption>Коррекция + окрашивание</figcaption>
@@ -173,11 +179,16 @@
                         <figcaption>Комплекс</figcaption>
                     </figure>
 
-                    <!-- Можно добавить больше карточек по желанию -->
                     <figure class="gallery-item">
                         <img src="images/work-5.webp" alt="Брови до и после — пример 5" width="600" height="600" loading="lazy" />
                         <figcaption>Натуральный эффект</figcaption>
                     </figure>
+                </div>
+
+                <div class="gallery-action">
+                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
+                        Записаться
+                    </a>
                 </div>
             </div>
         </section>
@@ -199,47 +210,7 @@
             </div>
         </section>
 
-        <!-- BOOKING (ТОЛЬКО КНОПКА + КОНТАКТЫ) -->
-        <section id="booking" class="section" aria-label="Запись">
-            <div class="container grid-2">
-                <div class="card booking-card">
-                    <h2>Записаться онлайн</h2>
-                    <p class="muted">Нажмите кнопку — откроется удобная форма записи через mst.link</p>
-
-                    <!-- Большая кнопка записи на всю ширину карточки -->
-                    <a class="btn btn--primary btn--large" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
-                        ✦ Записаться сейчас ✦
-                    </a>
-
-                    <hr class="sep" />
-
-                    <p class="muted">или свяжитесь напрямую:</p>
-                    <div class="contact-buttons">
-                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
-                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
-                        <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
-                        <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
-                    </div>
-                </div>
-
-                <aside class="card">
-                    <h3>Написать напрямую</h3>
-                    <p class="muted">Выберите удобный способ связи:</p>
-
-                    <div class="contact-buttons">
-                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
-                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
-                        <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
-                    </div>
-
-                    <hr class="sep" />
-
-                    <p class="muted"><strong>Быстрая запись:</strong></p>
-                    <a class="btn btn--primary" href="tel:+70000000000">Позвонить</a>
-                </aside>
-            </div>
-        </section>
-
+        <!-- БЛОК ЗАПИСИ: ФОРМЫ НЕТ, СЕКЦИЮ УБРАЛИ ПОЛНОСТЬЮ -->
         <!-- REVIEWS -->
         <section id="reviews" class="section" aria-label="Отзывы клиентов">
             <div class="container">
@@ -260,6 +231,10 @@
                         <h3>Екатерина</h3>
                         <p>«Было комфортно, все чисто, объяснили уход. Приду снова.»</p>
                     </article>
+                </div>
+
+                <div class="reviews-action">
+                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
                 </div>
             </div>
         </section>
@@ -285,6 +260,10 @@
                         <p>За сутки лучше избегать агрессивных пилингов/скрабов в зоне бровей. Остальное расскажу при записи.</p>
                     </details>
                 </div>
+
+                <div class="faq-action">
+                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
+                </div>
             </div>
         </section>
 
@@ -301,7 +280,19 @@
                         <li><strong>Почта:</strong> <a href="mailto:hello@example.com">hello@example.com</a></li>
                     </ul>
 
-                    <a class="btn btn--ghost" href="#top">Наверх</a>
+                    <div class="contact-buttons">
+                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
+                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
+                        <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
+                        <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+                    </div>
+
+                    <div class="contacts-action">
+                        <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
+                            Записаться
+                        </a>
+                        <a class="btn btn--ghost" href="#top">Наверх</a>
+                    </div>
                 </div>
 
                 <figure class="card map">
@@ -323,7 +314,7 @@
         </div>
     </footer>
 
-    <!-- JS отдельно (вы подключите позже) -->
+    <!-- JS отдельно (подключите позже) -->
     <script src="script.js" defer></script>
 </body>
 </html>

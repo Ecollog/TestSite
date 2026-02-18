@@ -1,123 +1,152 @@
 ﻿// script.js
-document.addEventListener("DOMContentLoaded", () => {
-    // 1) Текущий год в футере
+
+// 1) Год в футере
+(() => {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+})();
 
-    // 2) Бургер-меню
+// 2) Бургер-меню (доступно + aria)
+(() => {
     const toggle = document.querySelector(".nav-toggle");
     const nav = document.getElementById("siteNav");
+    if (!toggle || !nav) return;
 
-    const setMenu = (open) => {
-        if (!toggle || !nav) return;
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
-        nav.classList.toggle("is-open", open);
-        document.body.style.overflow = open ? "hidden" : "";
-    };
+    // Ставим стартовое состояние для мобилки
+    const mq = window.matchMedia("(max-width: 640px)");
 
-    if (toggle && nav) {
-        toggle.addEventListener("click", () => {
-            const isOpen = toggle.getAttribute("aria-expanded") === "true";
-            setMenu(!isOpen);
-        });
-
-        // Закрыть по клику на ссылку
-        nav.addEventListener("click", (e) => {
-            const a = e.target.closest("a");
-            if (!a) return;
-            // если якорь — закрываем и плавно скроллим
-            const href = a.getAttribute("href") || "";
-            if (href.startsWith("#")) setMenu(false);
-        });
-
-        // Закрыть по ESC
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") setMenu(false);
-        });
-
-        // Закрыть при клике вне меню (на мобилке)
-        document.addEventListener("click", (e) => {
-            if (!nav.classList.contains("is-open")) return;
-            const insideNav = nav.contains(e.target);
-            const insideBtn = toggle.contains(e.target);
-            if (!insideNav && !insideBtn) setMenu(false);
-        });
+    function setMobileState(isMobile) {
+        if (!isMobile) {
+            // на десктопе меню всегда видно
+            nav.removeAttribute("hidden");
+            toggle.setAttribute("aria-expanded", "false");
+            return;
+        }
+        // на мобилке закрыто по умолчанию
+        nav.setAttribute("hidden", "");
+        toggle.setAttribute("aria-expanded", "false");
     }
 
-    // 3) Плавный скролл для якорей (и небольшой отступ под sticky header)
-    const header = document.querySelector(".site-header");
-    const headerOffset = () => (header ? header.getBoundingClientRect().height : 0);
+    setMobileState(mq.matches);
+    mq.addEventListener?.("change", (e) => setMobileState(e.matches));
 
-    document.addEventListener("click", (e) => {
-        const a = e.target.closest('a[href^="#"]');
-        if (!a) return;
+    function openMenu() {
+        nav.removeAttribute("hidden");
+        toggle.setAttribute("aria-expanded", "true");
+    }
 
-        const id = a.getAttribute("href");
-        if (!id || id === "#") return;
+    function closeMenu() {
+        nav.setAttribute("hidden", "");
+        toggle.setAttribute("aria-expanded", "false");
+    }
 
-        const target = document.querySelector(id);
-        if (!target) return;
-
-        e.preventDefault();
-        const top = window.scrollY + target.getBoundingClientRect().top - headerOffset() - 10;
-
-        window.scrollTo({ top, behavior: "smooth" });
-        history.pushState(null, "", id);
+    toggle.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        expanded ? closeMenu() : openMenu();
     });
 
-    // 4) Активная ссылка меню по секциям (IntersectionObserver)
-    const navLinks = Array.from(document.querySelectorAll('.nav__list a[href^="#"]'));
-    const sections = navLinks
-        .map(a => document.querySelector(a.getAttribute("href")))
-        .filter(Boolean);
+    // Закрывать по клику на ссылку (на мобилке)
+    nav.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a) return;
+        if (mq.matches) closeMenu();
+    });
 
-    const setActive = (id) => {
-        navLinks.forEach(a => {
-            const active = a.getAttribute("href") === id;
-            a.classList.toggle("is-active", active);
-        });
-    };
+    // Закрыть по Escape
+    document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        if (mq.matches) closeMenu();
+    });
+})();
 
-    if (sections.length) {
-        const obs = new IntersectionObserver((entries) => {
-            // выбираем наиболее видимую секцию
-            const visible = entries
-                .filter(e => e.isIntersecting)
-                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+// 3) Галерея: колесо мыши прокручивает горизонтально + drag-to-scroll
+(() => {
+    const scroller = document.querySelector(".gallery-scroll");
+    if (!scroller) return;
 
-            if (visible?.target?.id) setActive("#" + visible.target.id);
-        }, {
-            root: null,
-            threshold: [0.15, 0.25, 0.4, 0.6],
-            rootMargin: `-${headerOffset()}px 0px -55% 0px`
-        });
-
-        sections.forEach(s => obs.observe(s));
-    }
-
-    // 5) “Мягкая” реакция хедера при скролле
-    const onScroll = () => {
-        const scrolled = window.scrollY > 10;
-        document.querySelector(".site-header")?.classList.toggle("is-scrolled", scrolled);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // 6) Галерея: прокрутка колесом мыши (горизонтально)
-    const gallery = document.querySelector(".gallery-scroll");
-    if (gallery) {
-        gallery.addEventListener("wheel", (e) => {
-            // если трекпад — часто уже горизонталь, не мешаем
+    // 3.1) Wheel -> горизонтальный скролл
+    scroller.addEventListener(
+        "wheel",
+        (e) => {
+            // Если пользователь уже скроллит по горизонтали трекпадом — не мешаем
             if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-            e.preventDefault();
-            gallery.scrollLeft += e.deltaY;
-        }, { passive: false });
 
-        // Подсказка: если есть прокрутка — добавим class, можно использовать в css при желании
-        const update = () => {
-            gallery.classList.toggle("is-scrollable", gallery.scrollWidth > gallery.clientWidth + 2);
-        };
-        update();
-        window.addEventListener("resize", update);
+            // Если зажали Shift — браузер и так часто скроллит горизонтально
+            if (e.shiftKey) return;
+
+            e.preventDefault();
+            scroller.scrollLeft += e.deltaY;
+        },
+        { passive: false }
+    );
+
+    // 3.2) Drag-to-scroll hints
+    scroller.style.cursor = "grab";
+    scroller.style.userSelect = "none";
+
+    let isDown = false;
+    let startX = 0;
+    let startLeft = 0;
+
+    function onDown(clientX) {
+        isDown = true;
+        startX = clientX;
+        startLeft = scroller.scrollLeft;
+        scroller.style.cursor = "grabbing";
     }
-});
+
+    function onMove(clientX) {
+        if (!isDown) return;
+        const dx = clientX - startX;
+        scroller.scrollLeft = startLeft - dx;
+    }
+
+    function onUp() {
+        isDown = false;
+        scroller.style.cursor = "grab";
+    }
+
+    // Мышь
+    scroller.addEventListener("mousedown", (e) => {
+        // только ЛКМ
+        if (e.button !== 0) return;
+        onDown(e.clientX);
+    });
+
+    window.addEventListener("mousemove", (e) => onMove(e.clientX));
+    window.addEventListener("mouseup", onUp);
+
+    // Тач
+    scroller.addEventListener(
+        "touchstart",
+        (e) => {
+            if (!e.touches || e.touches.length !== 1) return;
+            onDown(e.touches[0].clientX);
+        },
+        { passive: true }
+    );
+
+    scroller.addEventListener(
+        "touchmove",
+        (e) => {
+            if (!e.touches || e.touches.length !== 1) return;
+            onMove(e.touches[0].clientX);
+        },
+        { passive: true }
+    );
+
+    scroller.addEventListener("touchend", onUp);
+
+    // 3.3) Клавиатура: стрелки влево/вправо двигают ленту, если фокус на ленте
+    scroller.addEventListener("keydown", (e) => {
+        const step = 280; // примерно ширина карточки
+        if (e.key === "ArrowRight") {
+            scroller.scrollBy({ left: step, behavior: "smooth" });
+            e.preventDefault();
+        }
+        if (e.key === "ArrowLeft") {
+            scroller.scrollBy({ left: -step, behavior: "smooth" });
+            e.preventDefault();
+        }
+    });
+})();
