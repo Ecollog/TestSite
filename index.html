@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -7,10 +7,9 @@
     <meta name="description" content="Оформление бровей, ламинирование, окрашивание. Запись онлайн. [Город]." />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- CSS отдельно -->
+    <!-- CSS отдельно (вы подключите позже) -->
     <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
     <a class="skip-link" href="#main">Перейти к содержанию</a>
 
@@ -36,12 +35,12 @@
             <nav id="siteNav" class="nav" aria-label="Основная навигация">
                 <ul class="nav__list">
                     <li><a href="#services">Услуги</a></li>
-                    <li><a href="#prices">Цены</a></li>
                     <li><a href="#gallery">Галерея</a></li>
                     <li><a href="#documents">Документы</a></li>
                     <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#contacts">Контакты</a></li>
+                    <li><a href="#booking" class="nav-cta">Записаться</a></li>
                 </ul>
             </nav>
         </div>
@@ -66,8 +65,9 @@
                     </ul>
 
                     <div class="hero-actions">
-                        <a class="btn btn--primary" href="#booking">Записаться</a>
-                        <a class="btn btn--ghost" href="#prices">Посмотреть цены</a>
+                        <!-- Кнопка записи ведёт на ваш mst.link -->
+                        <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться</a>
+                        <a class="btn btn--ghost" href="#gallery">Смотреть работы</a>
                     </div>
 
                     <p class="muted">Работаю в уютной студии в центре [Город].</p>
@@ -109,10 +109,11 @@
             </div>
         </section>
 
-        <!-- SERVICES -->
+        <!-- SERVICES (БЕЗ ЦЕН) -->
         <section id="services" class="section">
             <div class="container">
                 <h2>Услуги</h2>
+                <p class="muted section-sub">Подберём идеальную форму и оттенок</p>
 
                 <div class="cards-grid">
                     <article class="card">
@@ -135,108 +136,47 @@
                         <p>Коррекция + окрашивание / ламинирование + окрашивание (варианты уточняются).</p>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- PRICES -->
-        <section id="prices" class="section" aria-label="Цены">
-            <div class="container">
-                <div class="section-head">
-                    <h2>Цены</h2>
-                    <p class="muted"><small>* Итоговая стоимость зависит от густоты/особенностей волосков и выбранных материалов.</small></p>
-                </div>
-
-                <!-- Desktop/tablet -->
-                <div class="price-table card">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th scope="col">Услуга</th>
-                                <th scope="col">Время</th>
-                                <th scope="col">Стоимость</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Коррекция бровей</td>
-                                <td>30–40 мин</td>
-                                <td>[₽/€ …]</td>
-                            </tr>
-                            <tr>
-                                <td>Окрашивание бровей</td>
-                                <td>40–60 мин</td>
-                                <td>[₽/€ …]</td>
-                            </tr>
-                            <tr>
-                                <td>Ламинирование бровей</td>
-                                <td>60–90 мин</td>
-                                <td>[₽/€ …]</td>
-                            </tr>
-                            <tr>
-                                <td>Комплекс</td>
-                                <td>70–100 мин</td>
-                                <td>[₽/€ …]</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Mobile/cards -->
-                <div class="price-cards">
-                    <article class="card price-card">
-                        <h3>Коррекция бровей</h3>
-                        <p><strong>Время:</strong> 30–40 мин</p>
-                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
-                    </article>
-
-                    <article class="card price-card">
-                        <h3>Окрашивание бровей</h3>
-                        <p><strong>Время:</strong> 40–60 мин</p>
-                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
-                    </article>
-
-                    <article class="card price-card">
-                        <h3>Ламинирование бровей</h3>
-                        <p><strong>Время:</strong> 60–90 мин</p>
-                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
-                    </article>
-
-                    <article class="card price-card">
-                        <h3>Комплекс</h3>
-                        <p><strong>Время:</strong> 70–100 мин</p>
-                        <p><strong>Стоимость:</strong> [₽/€ …]</p>
-                    </article>
+                <!-- Быстрая запись под услугами (опционально) -->
+                <div class="services-action">
+                    <a class="btn btn--primary" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">Записаться на процедуру</a>
                 </div>
             </div>
         </section>
 
-        <!-- GALLERY -->
+        <!-- GALLERY (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) -->
         <section id="gallery" class="section" aria-label="Галерея работ">
             <div class="container">
                 <div class="section-head">
                     <h2>Галерея</h2>
-                    <p class="muted">Примеры работ (до/после). Замените картинки на свои.</p>
+                    <p class="muted">Примеры работ (листайте вправо →)</p>
                 </div>
 
-                <div class="gallery-grid">
-                    <figure class="card">
+                <!-- Контейнер для горизонтального скролла (flex + overflow) -->
+                <div class="gallery-scroll">
+                    <figure class="gallery-item">
                         <img src="images/work-1.webp" alt="Брови до и после — пример 1" width="600" height="600" loading="lazy" />
                         <figcaption>Коррекция + окрашивание</figcaption>
                     </figure>
 
-                    <figure class="card">
+                    <figure class="gallery-item">
                         <img src="images/work-2.webp" alt="Брови до и после — пример 2" width="600" height="600" loading="lazy" />
                         <figcaption>Ламинирование</figcaption>
                     </figure>
 
-                    <figure class="card">
+                    <figure class="gallery-item">
                         <img src="images/work-3.webp" alt="Брови до и после — пример 3" width="600" height="600" loading="lazy" />
                         <figcaption>Окрашивание (натуральный оттенок)</figcaption>
                     </figure>
 
-                    <figure class="card">
+                    <figure class="gallery-item">
                         <img src="images/work-4.webp" alt="Брови до и после — пример 4" width="600" height="600" loading="lazy" />
                         <figcaption>Комплекс</figcaption>
+                    </figure>
+
+                    <!-- Можно добавить больше карточек по желанию -->
+                    <figure class="gallery-item">
+                        <img src="images/work-5.webp" alt="Брови до и после — пример 5" width="600" height="600" loading="lazy" />
+                        <figcaption>Натуральный эффект</figcaption>
                     </figure>
                 </div>
             </div>
@@ -259,56 +199,34 @@
             </div>
         </section>
 
-        <!-- BOOKING -->
+        <!-- BOOKING (ТОЛЬКО КНОПКА + КОНТАКТЫ) -->
         <section id="booking" class="section" aria-label="Запись">
             <div class="container grid-2">
-                <div class="card">
-                    <h2>Записаться</h2>
-                    <p class="muted">Оставьте контакты — я напишу вам для подтверждения времени.</p>
+                <div class="card booking-card">
+                    <h2>Записаться онлайн</h2>
+                    <p class="muted">Нажмите кнопку — откроется удобная форма записи через mst.link</p>
 
-                    <form id="bookingForm" class="form" action="#" method="post" novalidate>
-                        <label class="field">
-                            <span>Имя</span>
-                            <input name="name" autocomplete="name" required />
-                        </label>
+                    <!-- Большая кнопка записи на всю ширину карточки -->
+                    <a class="btn btn--primary btn--large" href="https://mst.link/l/1GsPQR" target="_blank" rel="noopener">
+                        ✦ Записаться сейчас ✦
+                    </a>
 
-                        <label class="field">
-                            <span>Телефон / мессенджер</span>
-                            <input name="phone" autocomplete="tel" required />
-                        </label>
+                    <hr class="sep" />
 
-                        <label class="field">
-                            <span>Услуга</span>
-                            <select name="service" required>
-                                <option value="" selected>Выберите услугу</option>
-                                <option>Коррекция</option>
-                                <option>Окрашивание</option>
-                                <option>Ламинирование</option>
-                                <option>Комплекс</option>
-                            </select>
-                        </label>
-
-                        <label class="field">
-                            <span>Комментарий (по желанию)</span>
-                            <textarea name="comment" rows="4"
-                                      placeholder="Например: хочу максимально натурально, есть аллергия/особенности"></textarea>
-                        </label>
-
-                        <label class="check">
-                            <input type="checkbox" name="agree" required />
-                            <span>Я согласен(на) на обработку персональных данных</span>
-                        </label>
-
-                        <button class="btn btn--primary" type="submit">Отправить</button>
-                        <p class="form-hint muted" role="status" aria-live="polite"></p>
-                    </form>
+                    <p class="muted">или свяжитесь напрямую:</p>
+                    <div class="contact-buttons">
+                        <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
+                        <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
+                        <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
+                        <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+                    </div>
                 </div>
 
                 <aside class="card">
                     <h3>Написать напрямую</h3>
                     <p class="muted">Выберите удобный способ связи:</p>
 
-                    <div class="contact-buttons hero-actions">
+                    <div class="contact-buttons">
                         <a class="btn btn--ghost" href="https://t.me/USERNAME" rel="noopener">Telegram</a>
                         <a class="btn btn--ghost" href="https://wa.me/000000000000" rel="noopener">WhatsApp</a>
                         <a class="btn btn--ghost" href="https://instagram.com/USERNAME" rel="noopener">Instagram</a>
@@ -405,7 +323,7 @@
         </div>
     </footer>
 
-    <!-- JS отдельно -->
+    <!-- JS отдельно (вы подключите позже) -->
     <script src="script.js" defer></script>
 </body>
 </html>

@@ -1,316 +1,123 @@
-﻿(() => {
-    const $ = (s, root = document) => root.querySelector(s);
-    const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
-
-    // ===== Year in footer
-    const yearEl = $("#year");
+﻿// script.js
+document.addEventListener("DOMContentLoaded", () => {
+    // 1) Текущий год в футере
+    const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-    // ===== Mobile nav
-    const nav = $(".nav");
-    const toggle = $(".nav-toggle");
-    if (nav && toggle) {
+    // 2) Бургер-меню
+    const toggle = document.querySelector(".nav-toggle");
+    const nav = document.getElementById("siteNav");
+
+    const setMenu = (open) => {
+        if (!toggle || !nav) return;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        nav.classList.toggle("is-open", open);
+        document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    if (toggle && nav) {
         toggle.addEventListener("click", () => {
-            const open = nav.classList.toggle("is-open");
-            toggle.setAttribute("aria-expanded", String(open));
+            const isOpen = toggle.getAttribute("aria-expanded") === "true";
+            setMenu(!isOpen);
         });
 
+        // Закрыть по клику на ссылку
         nav.addEventListener("click", (e) => {
             const a = e.target.closest("a");
             if (!a) return;
-            nav.classList.remove("is-open");
-            toggle.setAttribute("aria-expanded", "false");
+            // если якорь — закрываем и плавно скроллим
+            const href = a.getAttribute("href") || "";
+            if (href.startsWith("#")) setMenu(false);
         });
 
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && nav.classList.contains("is-open")) {
-                nav.classList.remove("is-open");
-                toggle.setAttribute("aria-expanded", "false");
-            }
+        // Закрыть по ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") setMenu(false);
+        });
+
+        // Закрыть при клике вне меню (на мобилке)
+        document.addEventListener("click", (e) => {
+            if (!nav.classList.contains("is-open")) return;
+            const insideNav = nav.contains(e.target);
+            const insideBtn = toggle.contains(e.target);
+            if (!insideNav && !insideBtn) setMenu(false);
         });
     }
 
-    // ===== Smooth scroll offset for sticky header
-    const header = $(".site-header") || $("header");
-    const headerH = () => (header ? header.getBoundingClientRect().height : 0);
+    // 3) Плавный скролл для якорей (и небольшой отступ под sticky header)
+    const header = document.querySelector(".site-header");
+    const headerOffset = () => (header ? header.getBoundingClientRect().height : 0);
 
-    $$('a[href^="#"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-            const id = a.getAttribute("href");
-            if (!id || id === "#") return;
+    document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
 
-            const target = document.querySelector(id);
-            if (!target) return;
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
 
-            e.preventDefault();
-            const y = window.scrollY + target.getBoundingClientRect().top - headerH() - 10;
-            window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-        });
+        const target = document.querySelector(id);
+        if (!target) return;
+
+        e.preventDefault();
+        const top = window.scrollY + target.getBoundingClientRect().top - headerOffset() - 10;
+
+        window.scrollTo({ top, behavior: "smooth" });
+        history.pushState(null, "", id);
     });
 
-    // ===== Active section highlight in nav
-    const sections = $$("main section[id]");
-    const navLinks =
-        $$(".nav__list a[href^='#']")
-            .concat($$(".nav a[href^='#']"))
-            .filter((v, i, arr) => arr.indexOf(v) === i);
+    // 4) Активная ссылка меню по секциям (IntersectionObserver)
+    const navLinks = Array.from(document.querySelectorAll('.nav__list a[href^="#"]'));
+    const sections = navLinks
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
 
-    const linkById = new Map(navLinks.map(a => [a.getAttribute("href").slice(1), a]));
-
-    const onScrollActive = () => {
-        const mid = window.scrollY + headerH() + 120;
-
-        let currentId = null;
-        for (const s of sections) {
-            const top = s.offsetTop;
-            const bottom = top + s.offsetHeight;
-            if (mid >= top && mid < bottom) {
-                currentId = s.id;
-                break;
-            }
-        }
-
-        navLinks.forEach(a => a.classList.remove("is-active"));
-        if (currentId && linkById.has(currentId)) {
-            linkById.get(currentId).classList.add("is-active");
-        }
+    const setActive = (id) => {
+        navLinks.forEach(a => {
+            const active = a.getAttribute("href") === id;
+            a.classList.toggle("is-active", active);
+        });
     };
-    window.addEventListener("scroll", onScrollActive, { passive: true });
-    onScrollActive();
 
-    // ===== Back to top button
-    const backTop = document.createElement("button");
-    backTop.className = "backtop";
-    backTop.type = "button";
-    backTop.setAttribute("aria-label", "Наверх");
-    backTop.innerHTML = "<span>↑</span>";
-    document.body.appendChild(backTop);
+    if (sections.length) {
+        const obs = new IntersectionObserver((entries) => {
+            // выбираем наиболее видимую секцию
+            const visible = entries
+                .filter(e => e.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-    const toggleBackTop = () => {
-        if (window.scrollY > 700) backTop.classList.add("is-visible");
-        else backTop.classList.remove("is-visible");
-    };
-    window.addEventListener("scroll", toggleBackTop, { passive: true });
-    toggleBackTop();
+            if (visible?.target?.id) setActive("#" + visible.target.id);
+        }, {
+            root: null,
+            threshold: [0.15, 0.25, 0.4, 0.6],
+            rootMargin: `-${headerOffset()}px 0px -55% 0px`
+        });
 
-    backTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // ===== Toast helper
-    let toastTimer = null;
-    function toast(html, ms = 3500) {
-        const old = $(".toast");
-        if (old) old.remove();
-
-        const t = document.createElement("div");
-        t.className = "toast";
-        t.innerHTML = html;
-        document.body.appendChild(t);
-
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => t.remove(), ms);
+        sections.forEach(s => obs.observe(s));
     }
 
-    // ===== Gallery lightbox (под новый HTML)
-    // Было: #gallery figure
-    // Стало: #gallery .gallery-grid figure.card
-    const galleryFigures =
-        $$("#gallery .gallery-grid figure")
-            .concat($$("#gallery figure"))
-            .filter((v, i, arr) => arr.indexOf(v) === i);
+    // 5) “Мягкая” реакция хедера при скролле
+    const onScroll = () => {
+        const scrolled = window.scrollY > 10;
+        document.querySelector(".site-header")?.classList.toggle("is-scrolled", scrolled);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-    if (galleryFigures.length) {
-        const lb = document.createElement("div");
-        lb.className = "lightbox";
-        lb.setAttribute("role", "dialog");
-        lb.setAttribute("aria-modal", "true");
-        lb.innerHTML = `
-      <div class="lightbox__panel">
-        <div class="lightbox__top">
-          <div class="lightbox__title">Галерея</div>
-          <button class="lightbox__btn" type="button" aria-label="Закрыть">Закрыть ✕</button>
-        </div>
-        <img class="lightbox__img" alt="" />
-        <div class="lightbox__caption"></div>
-      </div>
-    `;
-        document.body.appendChild(lb);
-
-        const lbImg = $(".lightbox__img", lb);
-        const lbCaption = $(".lightbox__caption", lb);
-        const lbCloseBtn = $(".lightbox__btn", lb);
-
-        let lastFocus = null;
-
-        function openLightbox(src, alt, caption) {
-            lastFocus = document.activeElement;
-            lbImg.src = src;
-            lbImg.alt = alt || "Фото";
-            lbCaption.textContent = caption || "";
-            lb.classList.add("is-open");
-            document.body.style.overflow = "hidden";
-            lbCloseBtn.focus();
-        }
-
-        function closeLightbox() {
-            lb.classList.remove("is-open");
-            document.body.style.overflow = "";
-            if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
-        }
-
-        galleryFigures.forEach((fig) => {
-            fig.tabIndex = 0;
-            const img = $("img", fig);
-            const cap = $("figcaption", fig);
-            if (!img) return;
-
-            const src = img.dataset.full || img.currentSrc || img.src;
-            const caption = cap ? cap.textContent : "";
-
-            const open = () => openLightbox(src, img.alt, caption);
-
-            fig.addEventListener("click", open);
-            fig.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    open();
-                }
-            });
-        });
-
-        lb.addEventListener("click", (e) => {
-            if (e.target === lb) closeLightbox();
-        });
-        lbCloseBtn.addEventListener("click", closeLightbox);
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && lb.classList.contains("is-open")) closeLightbox();
-        });
-    }
-
-    // ===== Form: validation + "smart submit"
-    const form = $("#bookingForm");
-    if (form) {
-        const nameInput = $("input[name='name']", form);
-        const phoneInput = $("input[name='phone']", form);
-        const serviceSelect = $("select[name='service']", form);
-        const agreeCheck = $("input[name='agree']", form);
-        const hint = $(".form-hint", form) || $(".form-hint");
-
-        function clearErrors() {
-            $$(".error-text", form).forEach(el => el.remove());
-            $$(".field-error", form).forEach(el => el.classList.remove("field-error"));
-        }
-
-        function setFieldError(field, msg) {
-            field.classList.add("field-error");
-            const p = document.createElement("div");
-            p.className = "error-text";
-            p.textContent = msg;
-
-            const wrap = field.closest("label") || field.parentElement;
-            wrap.appendChild(p);
-        }
-
-        function normalizePhone(raw) {
-            const cleaned = String(raw || "").replace(/[^\d+]/g, "");
-            const digits = cleaned.replace(/[^\d]/g, "");
-            if (digits.length === 11 && digits.startsWith("8")) return "+7" + digits.slice(1);
-            if (digits.length === 11 && digits.startsWith("7")) return "+" + digits;
-            if (cleaned.startsWith("+") && digits.length >= 10) return cleaned;
-            return cleaned;
-        }
-
-        function validate() {
-            clearErrors();
-            if (hint) hint.textContent = "";
-
-            let ok = true;
-            const name = (nameInput?.value || "").trim();
-            const phone = normalizePhone(phoneInput?.value || "");
-            const service = serviceSelect?.value || "";
-            const agree = !!agreeCheck?.checked;
-
-            if (!nameInput || !phoneInput || !serviceSelect || !agreeCheck) {
-                toast("Ошибка: не найдены поля формы. Проверьте name/id в HTML.");
-                return false;
-            }
-
-            if (!name || name.length < 2) {
-                ok = false;
-                setFieldError(nameInput, "Введите имя (минимум 2 символа).");
-            }
-
-            const digits = phone.replace(/[^\d]/g, "");
-            const looksRu = phone.startsWith("+7") && digits.length === 11;
-            const looksAny = digits.length >= 10;
-
-            if (!looksRu && !looksAny) {
-                ok = false;
-                setFieldError(phoneInput, "Введите корректный телефон (минимум 10 цифр).");
-            } else {
-                phoneInput.value = phone;
-            }
-
-            if (!service) {
-                ok = false;
-                setFieldError(serviceSelect, "Выберите услугу.");
-            }
-
-            if (!agree) {
-                ok = false;
-                setFieldError(agreeCheck, "Нужно согласие на обработку данных.");
-            }
-
-            return ok;
-        }
-
-        form.addEventListener("submit", (e) => {
+    // 6) Галерея: прокрутка колесом мыши (горизонтально)
+    const gallery = document.querySelector(".gallery-scroll");
+    if (gallery) {
+        gallery.addEventListener("wheel", (e) => {
+            // если трекпад — часто уже горизонталь, не мешаем
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
             e.preventDefault();
+            gallery.scrollLeft += e.deltaY;
+        }, { passive: false });
 
-            if (!validate()) {
-                if (hint) hint.textContent = "Проверьте поля формы — есть ошибки.";
-                toast("Проверьте поля формы — есть ошибки.");
-                return;
-            }
-
-            const name = (nameInput.value || "").trim();
-            const phone = normalizePhone(phoneInput.value || "");
-            const service = serviceSelect.value;
-            const comment = ($("textarea[name='comment']", form)?.value || "").trim();
-
-            const plain =
-                `Запись на брови:\n` +
-                `Имя: ${name}\n` +
-                `Телефон: ${phone}\n` +
-                `Услуга: ${service}\n` +
-                (comment ? `Комментарий: ${comment}\n` : "");
-
-            const msg = encodeURIComponent(plain);
-
-            // TODO: ЗАМЕНИТЕ на реальные данные
-            const telegram = `https://t.me/USERNAME?text=${msg}`;
-            const whatsapp = `https://wa.me/000000000000?text=${msg}`;
-
-            toast(
-                `Заявка готова ✅ <a href="${telegram}" target="_blank" rel="noopener">Отправить в Telegram</a> • ` +
-                `<a href="${whatsapp}" target="_blank" rel="noopener">WhatsApp</a>`,
-                8000
-            );
-
-            if (hint) hint.textContent = "Заявка сформирована. Выберите мессенджер в всплывающем сообщении.";
-            form.reset();
-        });
-
-        // Убираем ошибку у поля при вводе
-        form.addEventListener("input", (e) => {
-            const field = e.target;
-            if (!(field instanceof HTMLElement)) return;
-
-            field.classList.remove("field-error");
-            const err = field.closest("label")?.querySelector(".error-text")
-                || field.parentElement?.querySelector(".error-text");
-            if (err) err.remove();
-        }, { passive: true });
+        // Подсказка: если есть прокрутка — добавим class, можно использовать в css при желании
+        const update = () => {
+            gallery.classList.toggle("is-scrollable", gallery.scrollWidth > gallery.clientWidth + 2);
+        };
+        update();
+        window.addEventListener("resize", update);
     }
-})();
+});
